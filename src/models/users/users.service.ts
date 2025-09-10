@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { GetAuthenticatedDto } from './dto/get-authenticated.dto';
 import { IUserResponse } from './interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
+import { UpdateUserProfileDto } from './dto/update-profile.dto';
 
 @Injectable()
 export class UserService extends BaseService<User, Repository<User>> {
@@ -41,6 +42,14 @@ export class UserService extends BaseService<User, Repository<User>> {
 
   async getUserProfile(userId: string): Promise<IUserResponse> {
     const user = await this.findById(userId);
+    return new UserSerializer(user);
+  }
+
+  async updateUserProfile(
+    userId: string,
+    updateUserProfileDto: UpdateUserProfileDto,
+  ): Promise<IUserResponse> {
+    const user = await this.update(userId, updateUserProfileDto);
     return new UserSerializer(user);
   }
 }

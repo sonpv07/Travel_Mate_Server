@@ -11,6 +11,8 @@ import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 import { AuthModule } from './authentication/auth.module';
 import { LocalStrategy } from './authentication/strategies/local.strategy';
 import { JwtAccessTokenStrategy } from './authentication/strategies/jwt-access-token.strategy';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAccessTokenGuard } from './authentication/guard/jwt-access-token.guard';
 
 @Module({
   imports: [
@@ -30,6 +32,11 @@ import { JwtAccessTokenStrategy } from './authentication/strategies/jwt-access-t
     {
       provide: 'APP_FILTER',
       useClass: AllExceptionsFilter,
+    },
+
+    {
+      provide: APP_GUARD,
+      useClass: JwtAccessTokenGuard,
     },
     JwtAccessTokenStrategy,
     LocalStrategy,

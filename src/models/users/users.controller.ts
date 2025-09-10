@@ -1,16 +1,18 @@
-// src/models/users/users.controller.ts
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { UserService } from './users.service';
-import { JwtAccessTokenGuard } from 'src/authentication/guard/jwt-access-token.guard';
 import { IUserRequest, IUserResponse } from './interfaces/user.interface';
 import { IApiResponse } from 'src/common/interfaces/api-response.interface';
+import { Roles } from 'src/common/decorators/role.decorator';
+import { UserRoleEnum } from './enums/user.enum';
+import { RolesGuard } from 'src/common/guards/role.guard';
 
 @Controller('users')
-@UseGuards(JwtAccessTokenGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
+  @UseGuards(RolesGuard)
+  @Roles([UserRoleEnum.ADMIN])
   async findAll(): Promise<IUserResponse[]> {
     return this.userService.findAll();
   }

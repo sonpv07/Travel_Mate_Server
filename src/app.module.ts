@@ -9,8 +9,8 @@ import { UserModule } from './models/users/users.module';
 import { PostgreSQLDatabaseProviderModule } from './providers/database/postgres/provider.module';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 import { AuthModule } from './authentication/auth.module';
-import { JwtAccessTokenStrategy } from './authentication/stratergies/jwt-access-token.stratergy';
-import { LocalStrategy } from './authentication/stratergies/local.stratergy';
+import { LocalStrategy } from './authentication/strategies/local.strategy';
+import { JwtAccessTokenStrategy } from './authentication/strategies/jwt-access-token.strategy';
 
 @Module({
   imports: [

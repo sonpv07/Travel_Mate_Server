@@ -38,4 +38,9 @@ export class UserService extends BaseService<User, Repository<User>> {
 
     return existedUser ? new UserSerializer(existedUser) : null;
   }
+
+  async getUserProfile(userId: string): Promise<IUserResponse> {
+    const user = await this.findById(userId);
+    return new UserSerializer(user);
+  }
 }

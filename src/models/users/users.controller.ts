@@ -41,7 +41,7 @@ export class UserController {
         user.id,
         updateUserProfileDto,
       ),
-      message: 'Get profile successfully',
+      message: 'Update profile successfully',
       success: true,
     };
   }
